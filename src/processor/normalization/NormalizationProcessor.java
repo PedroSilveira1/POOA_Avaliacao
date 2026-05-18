@@ -1,11 +1,11 @@
-package processors;
+package processor.normalization;
 
 import model.DataFile;
 import model.DataRecord;
 import pipeline.Processor;
 
 // padroniza os valores de cada registro
-// texto vai pra maiúsculo, espaços são removidos
+// texto vai pra maiusculo, espacos sao removidos
 public class NormalizationProcessor implements Processor {
 
     @Override
@@ -26,7 +26,6 @@ public class NormalizationProcessor implements Processor {
         return dataFile;
     }
 
-    // converte texto pra maiúsculo e remove espaços
     private void normalize(DataRecord record, String column) {
         String value = record.getValue(column);
         if (value != null && !value.isEmpty()) {
@@ -34,7 +33,6 @@ public class NormalizationProcessor implements Processor {
         }
     }
 
-    // só remove espaços
     private void trimField(DataRecord record, String column) {
         String value = record.getValue(column);
         if (value != null) {
@@ -43,7 +41,5 @@ public class NormalizationProcessor implements Processor {
     }
 
     @Override
-    public String getName() {
-        return "NormalizationProcessor (Normalização)";
-    }
+    public String getName() { return "NormalizationProcessor (Normalizacao)"; }
 }

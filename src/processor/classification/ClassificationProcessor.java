@@ -1,4 +1,4 @@
-package processors;
+package processor.classification;
 
 import java.util.List;
 import model.DataColumn;
@@ -7,8 +7,6 @@ import model.DataRecord;
 import pipeline.Processor;
 
 // descobre o tipo de cada coluna analisando os valores
-// tipos possiveis: INTEGER, DECIMAL, DATE, TEXT, UNKNOWN
-
 public class ClassificationProcessor implements Processor {
 
     @Override
@@ -17,8 +15,7 @@ public class ClassificationProcessor implements Processor {
         List<DataRecord> records = dataFile.getRecords();
 
         for (DataColumn column : columns) {
-            String type = discoverType(column.getName(), records);
-            column.setType(type);
+            column.setType(discoverType(column.getName(), records));
         }
 
         System.out.println("   --- Tipos descobertos por coluna ---");
@@ -29,29 +26,17 @@ public class ClassificationProcessor implements Processor {
         return dataFile;
     }
 
-    // analisa os valores da coluna e decide o tipo predominante
-    
     private String discoverType(String columnName, List<DataRecord> records) {
-        int intCount = 0;
-        int decimalCount = 0;
-        int dateCount = 0;
-        int textCount = 0;
-        int emptyCount = 0;
+        int intCount = 0, decimalCount = 0, dateCount = 0, textCount = 0;
 
         for (DataRecord record : records) {
             String value = record.getValue(columnName);
+            if (value == null || value.isEmpty()) continue;
 
-            if (value == null || value.isEmpty()) {
-                emptyCount++;
-            } else if (isDate(value)) {
-                dateCount++;
-            } else if (isInteger(value)) {
-                intCount++;
-            } else if (isDecimal(value)) {
-                decimalCount++;
-            } else {
-                textCount++;
-            }
+            if (isDate(value))         dateCount++;
+            else if (isInteger(value)) intCount++;
+            else if (isDecimal(value)) decimalCount++;
+            else                       textCount++;
         }
 
         if (dateCount > 0) return "DATE";
@@ -71,7 +56,6 @@ public class ClassificationProcessor implements Processor {
         catch (NumberFormatException e) { return false; }
     }
 
-    // verifica se o valor começa com dia da semana -formato do dataset
     private boolean isDate(String value) {
         return value.startsWith("Mon") || value.startsWith("Tue") ||
                value.startsWith("Wed") || value.startsWith("Thu") ||
@@ -80,7 +64,5 @@ public class ClassificationProcessor implements Processor {
     }
 
     @Override
-    public String getName() {
-        return "ClassificationProcessor (Classificação)";
-    }
+    public String getName() { return "ClassificationProcessor (Classificacao)"; }
 }

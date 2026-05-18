@@ -1,4 +1,4 @@
-package processors;
+package processor.loader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,7 +23,6 @@ public class CsvLoaderProcessor implements Processor {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
-            // le o cabeçalho
             String headerLine = reader.readLine();
             if (headerLine == null) {
                 System.out.println("   ERRO: arquivo vazio.");
@@ -35,14 +34,12 @@ public class CsvLoaderProcessor implements Processor {
                 dataFile.addColumn(new DataColumn(name.trim()));
             }
 
-            // le as linhas de dados
             String line;
             int lineNumber = 1;
 
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
                 String[] cells = line.split(",", -1);
-
                 DataRecord record = new DataRecord(lineNumber);
 
                 for (int i = 0; i < columnNames.length; i++) {
@@ -65,7 +62,5 @@ public class CsvLoaderProcessor implements Processor {
     }
 
     @Override
-    public String getName() {
-        return "CsvLoaderProcessor (Carga)";
-    }
+    public String getName() { return "CsvLoaderProcessor (Carga)"; }
 }
