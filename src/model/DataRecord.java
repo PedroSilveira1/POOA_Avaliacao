@@ -3,7 +3,6 @@ package model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-// representa uma linha do csv
 // uso LinkedHashMap pra manter a ordem das colunas
 public class DataRecord {
 

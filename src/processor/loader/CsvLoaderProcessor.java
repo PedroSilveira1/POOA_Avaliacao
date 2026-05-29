@@ -1,5 +1,6 @@
 package processor.loader;
 
+import annotation.Processo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import model.DataColumn;
@@ -7,8 +8,7 @@ import model.DataFile;
 import model.DataRecord;
 import pipeline.Processor;
 
-// le o arquivo csv e monta o DataFile
-// primeira linha = colunas, restante = registros
+@Processo(ordem = 1)
 public class CsvLoaderProcessor implements Processor {
 
     private String filePath;

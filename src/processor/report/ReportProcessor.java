@@ -1,12 +1,12 @@
 package processor.report;
 
+import annotation.Processo;
 import model.DataColumn;
 import model.DataFile;
 import model.DataRecord;
 import pipeline.Processor;
 
-// agora o relatorio e um processador do pipeline
-// roda como ultima etapa e exibe o resultado final
+@Processo(ordem = 5)
 public class ReportProcessor implements Processor {
 
     @Override

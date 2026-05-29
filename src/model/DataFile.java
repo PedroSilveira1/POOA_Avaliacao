@@ -3,8 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// representa o arquivo csv completo
-// tem a lista de colunas e a lista de registros (linhas)
+
 public class DataFile {
 
     private String fileName;

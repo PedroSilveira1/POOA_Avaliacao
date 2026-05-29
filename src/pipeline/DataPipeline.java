@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.DataFile;
 
-// monta e executa as etapas do pipeline
-// usa o padrao Strategy pra decidir a ordem dos processadores
+// executa os processadores em sequencia 
 public class DataPipeline {
 
     private List<Processor> processors = new ArrayList<>();

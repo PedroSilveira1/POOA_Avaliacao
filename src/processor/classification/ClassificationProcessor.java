@@ -1,12 +1,13 @@
 package processor.classification;
 
+import annotation.Processo;
 import java.util.List;
 import model.DataColumn;
 import model.DataFile;
 import model.DataRecord;
 import pipeline.Processor;
 
-// descobre o tipo de cada coluna analisando os valores
+@Processo(ordem = 3)
 public class ClassificationProcessor implements Processor {
 
     @Override
@@ -56,6 +57,7 @@ public class ClassificationProcessor implements Processor {
         catch (NumberFormatException e) { return false; }
     }
 
+    // verifica se comeca com dia da semana - formato do dataset
     private boolean isDate(String value) {
         return value.startsWith("Mon") || value.startsWith("Tue") ||
                value.startsWith("Wed") || value.startsWith("Thu") ||

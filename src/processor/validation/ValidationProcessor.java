@@ -1,12 +1,13 @@
 package processor.validation;
 
+import annotation.Processo;
 import java.util.List;
 import model.DataColumn;
 import model.DataFile;
 import model.DataRecord;
 import pipeline.Processor;
 
-// valida cada registro com base nos tipos descobertos na classificacao
+@Processo(ordem = 4)
 public class ValidationProcessor implements Processor {
 
     @Override

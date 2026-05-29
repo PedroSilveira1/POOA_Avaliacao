@@ -1,11 +1,11 @@
 package processor.normalization;
 
+import annotation.Processo;
 import model.DataFile;
 import model.DataRecord;
 import pipeline.Processor;
 
-// padroniza os valores de cada registro
-// texto vai pra maiusculo, espacos sao removidos
+@Processo(ordem = 2)
 public class NormalizationProcessor implements Processor {
 
     @Override

@@ -1,6 +1,5 @@
 package model;
 
-// cada coluna do csv tem um nome e um tipo - o tipo começa como UNKNOWN e é descoberto na classificação
 public class DataColumn {
 
     private String name;
