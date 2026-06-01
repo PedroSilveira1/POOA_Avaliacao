@@ -1,30 +1,22 @@
+import java.util.Arrays;
 import java.util.List;
-import model.DataFile;
-import pipeline.DataPipeline;
-import pipeline.Processor;
-import pipeline.ProcessorScanner;
-import pipeline.SequentialStrategy;
+import pipeline.PipelineExecutor;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String csvPath = "data/car_sales.csv";
+        // lista de arquivos a processar em paralelo
+        List<String> arquivos = Arrays.asList(
+            "data/car_sales.csv",
+            "data/car_sales_2.csv",
+            "data/car_sales_3.csv"
+        );
 
-        // scanner descobre e ordena os processadores automaticamente via reflection
-        ProcessorScanner scanner = new ProcessorScanner(csvPath);
-        List<Processor> processadores = scanner.descobrir();
+        // 3 threads - uma por arquivo
+        PipelineExecutor executor = new PipelineExecutor(3);
+        executor.executar(arquivos, "");
 
-        System.out.println("Processadores descobertos: " + processadores.size());
-        System.out.println();
-
-        DataFile dataFile = new DataFile("car_sales.csv");
-
-        DataPipeline pipeline = new DataPipeline(new SequentialStrategy());
-        for (Processor p : processadores) {
-            pipeline.addProcessor(p);
-        }
-
-        pipeline.run(dataFile);
+        System.out.println("Processamento paralelo concluido!");
     }
 }
