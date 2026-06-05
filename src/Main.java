@@ -6,7 +6,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        // lista de arquivos a processar em paralelo
         List<String> arquivos = Arrays.asList(
             "data/car_sales.csv",
             "data/car_sales_2.csv",
@@ -15,7 +14,7 @@ public class Main {
 
         // 3 threads - uma por arquivo
         PipelineExecutor executor = new PipelineExecutor(3);
-        executor.executar(arquivos, "");
+        executor.executar(arquivos);
 
         System.out.println("Processamento paralelo concluido!");
     }

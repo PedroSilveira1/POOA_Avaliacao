@@ -17,16 +17,19 @@ public class PipelineExecutor {
         this.numThreads = numThreads;
     }
 
-    public void executar(List<String> caminhos, String csvPath) throws Exception {
+    public void executar(List<String> caminhos) throws Exception {
         ExecutorService executor = Executors.newFixedThreadPool(numThreads);
         List<Future<?>> tarefas = new ArrayList<>();
 
         for (String caminho : caminhos) {
+            // cada arquivo salva num banco separado
+            String dbPath = caminho.replace(".csv", ".db");
+
             Future<?> tarefa = executor.submit(() -> {
                 try {
                     DataFile dataFile = new DataFile(caminho);
 
-                    ProcessorScanner scanner = new ProcessorScanner(caminho);
+                    ProcessorScanner scanner = new ProcessorScanner(caminho, dbPath);
                     List<Processor> processadores = scanner.descobrir();
 
                     DataPipeline pipeline = new DataPipeline(new SequentialStrategy());
@@ -44,7 +47,6 @@ public class PipelineExecutor {
             tarefas.add(tarefa);
         }
 
-        // aguarda todas as threads terminarem
         for (Future<?> tarefa : tarefas) {
             tarefa.get();
         }
